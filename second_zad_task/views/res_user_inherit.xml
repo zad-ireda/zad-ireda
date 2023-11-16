@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="0">
+  
+    
+  
+  
+    <record id="view_users_form" model="ir.ui.view">
+        <field name="name">res.users.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='login']" position="after">
+                <label for="res_user_phone" string="phone"/>
+                <h2><field name="res_user_phone" /></h2>
+                <label for="res_user_mobile" string="mobile"/>
+                <h2><field name="res_user_mobile" /></h2>
+              </xpath>
+
+        </field>
+    </record>
+  </data>
+
+  </odoo>
