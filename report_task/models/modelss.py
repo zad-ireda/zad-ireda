@@ -39,8 +39,7 @@ class AccountReport(models.Model):
 
     def _init_options_accountt_type(self, options, previous_options=None):
         options['balance_type'] = [
-
-            {'id': 'show', 'name': _("showable")}]
+            {'id': 'show', 'name': _("show"), 'selected': True}]
         if previous_options and previous_options.get('balance_type'):
             previously_selected_ids = {
                 x['id'] for x in previous_options['balance_type'] if x.get('selected')}
