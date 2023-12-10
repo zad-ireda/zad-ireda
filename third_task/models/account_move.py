@@ -37,16 +37,17 @@ class accounMoveInherit(models.Model):
                 "move_id": move.id,
                 "name": "discount",
                 "amount_currency": 0,
-                "debit": move.account_move_discount,
+                "debit": 0,
                 'price_unit':move.account_move_discount,
-                "credit": 0,
+                "credit": move.account_move_discount,
                 "product_id": product.id,
                 "account_id": allowed_discount_account_id,
             })
-
-            # Update existing lines
             for line in move.line_ids:
-                if line.id != discount_line.id and line.debit != 0:
-                    line.update({"debit": line.debit - self.account_move_discount})
+                if line.id != discount_line.id and line.credit != 0  :
+                    line.update({"credit": line.credit - move.account_move_discount})
+                if line.id != discount_line.id and line.debit != 0  :
+                    line.update({"debit": line.debit - move.account_move_discount})
+                    
 
         return move
