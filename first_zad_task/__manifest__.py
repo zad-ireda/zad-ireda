@@ -3,7 +3,6 @@
 {
     'name': "deminstions",
     'version' : '1.2',
-    'sequence':-100,
     'depends':['base','sale','stock','account'],
     'data':[
         'security/ir.model.access.csv',

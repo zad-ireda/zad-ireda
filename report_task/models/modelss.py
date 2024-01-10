@@ -38,6 +38,7 @@ class AccountReport(models.Model):
     # access_field=fields.Many2one()
 
     def _init_options_accountt_type(self, options, previous_options=None):
+       
         options['balance_type'] = [
             {'id': 'show', 'name': _("show"), 'selected': True}]
         if previous_options and previous_options.get('balance_type'):

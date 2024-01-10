@@ -14,39 +14,19 @@ logger = logging.getLogger(__name__)
 
 class AuthSignupHome(Home):
 
-    def do_signup(self, qcontext):
-        """ Shared helper that creates a res.partner out of a token """
-        values = {key: qcontext.get(key) for key in (
-            'login', 'name', 'password', 'phone', 'mobile')}
-        values.update({'phone': (qcontext.get('phone'))})
-        values.update({'mobile': (qcontext.get('mobile'))})
+    def _prepare_signup_values(self, qcontext):
+        values = { key: qcontext.get(key) for key in ('login', 'name', 'password','national_id') }
         print(values)
         if not values:
             raise UserError(_("The form was not properly filled in."))
-        if not values.get('phone'):
-            raise UserError(_("mobile must be entered"))
-        if not values.get('mobile'):
-            raise UserError(_("mobile must be entered"))
         if values.get('password') != qcontext.get('confirm_password'):
-            raise UserError(_("Passwords do not match; please retype them.")
-                            
-        )
-        ph=values.get('phone')
-        if ph and not ph.isdigit():
-            raise UserError("Only numeric values are allowed in Your mobile.")
-        mo=values.get('mobile')
-        if ph and not ph.isdigit():
-            raise UserError("Only numeric values are allowed in Your phone.")
-        
-        supported_lang_codes = [code for code,
-                                _ in request.env['res.lang'].get_installed()]
-        lang = request.context.get('lang', '').split('_')[0]
+            raise UserError(_("Passwords do not match; please retype them."))
+        supported_lang_codes = [code for code, _ in request.env['res.lang'].get_installed()]
+        lang = request.context.get('lang', '')
         if lang in supported_lang_codes:
             values['lang'] = lang
-        self._signup_with_values(qcontext.get('token'), values)
-        request.env.cr.commit()
-        # super(AuthSignupHome, self._signup_with_values(qcontext.get('token'), values))
-
+        return values
+    
     @http.route('/web/signup', type='http', auth='public', website=True, sitemap=False)
     def web_auth_signup(self, *args, **kw):
         qcontext = self.get_auth_signup_qcontext()
@@ -84,7 +64,7 @@ class AuthSignupHome(Home):
 
     def get_auth_signup_qcontext(self):
         """ Shared helper returning the rendering context for signup and reset password """
-        SIGN_UP_REQUEST_PARAMS = {'db', 'login', 'debug', 'token', 'message', 'error', 'scope', 'mode',
+        SIGN_UP_REQUEST_PARAMS = {'db', 'login', 'debug', 'token', 'message', 'error', 'scope', 'mode','national_id',
 'redirect', 'redirect_hostname', 'email', 'name', 'partner_id', 'password', 'phone', 'mobile', 'confirm_password', 'city', 'country_id', 'lang'}
         qcontext = {k: v for (k, v) in request.params.items()
                     if k in SIGN_UP_REQUEST_PARAMS}

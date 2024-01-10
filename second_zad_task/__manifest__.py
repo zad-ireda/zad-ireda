@@ -6,7 +6,7 @@
     'sequence':-100,
     'depends':['base','auth_signup'],
     'data':['security/ir.model.access.csv',
-            'views/res_user_inherit.xml',
+            'views/res.partner.xml','views/res_user_inherit.xml',
             'views/sign_up_templete.xml'],
             
     'application':True,   

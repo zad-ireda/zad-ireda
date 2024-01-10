@@ -11,10 +11,9 @@
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='login']" position="after">
-                <label for="res_user_phone" string="phone"/>
-                <h2><field name="res_user_phone" /></h2>
-                <label for="res_user_mobile" string="mobile"/>
-                <h2><field name="res_user_mobile" /></h2>
+                <label for="national_id" string="national_id"/>
+                <h2><field name="national_id" /></h2>
+                
               </xpath>
 
         </field>

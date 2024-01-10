@@ -1,6 +1,7 @@
 from odoo import fields, models
 
 
-class ResUsers(models.Model):
+class Respartner(models.Model):
     _inherit = 'res.partner'
+    national_id= fields.Integer()
 
